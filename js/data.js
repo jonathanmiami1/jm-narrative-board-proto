@@ -39,7 +39,14 @@ window.NB_DATA = {
       "name": "Chiro Payments",
       "health": "Waiting on you",
       "health_reason": "The checkout screen needs your sign-off.",
-      "story": "Payments is in the sample world only. Tonight's work was planning: two of your ideas went onto the to-do list, and the checkout screen is ready for you to look at.",
+      "story": {
+       "item": "payments-lead-chiro-payments-checkout-screen",
+       "text": "Payments is in the sample world only. Tonight's work was planning: two of your ideas went onto the to-do list, and the checkout screen is ready for you to look at.",
+       "approved": "Payments is in the sample world only. Tonight's work was planning: two of your ideas went onto the to-do list, and you approved the checkout screen.",
+       "sent_back": "Payments is in the sample world only. Tonight's work was planning: two of your ideas went onto the to-do list, and you sent the checkout screen back with a comment.",
+       "other": "Payments is in the sample world only. Tonight's work was planning: two of your ideas went onto the to-do list, and you asked for a different approach on the checkout screen.",
+       "parked": "Payments is in the sample world only. Tonight's work was planning: two of your ideas went onto the to-do list, and you parked the checkout sign-off until tomorrow."
+      },
       "done": [
        "New checkout screen for a sample visit, checked by the checker",
        "Your visit-triggered copay idea written up for the to-do list",
@@ -65,7 +72,14 @@ window.NB_DATA = {
       "name": "Chiro Inventory",
       "health": "On track",
       "health_reason": "Low-stock alert built; one setting needs your view.",
-      "story": "Inventory has a working sample stock list. The low-stock alert works and only needs you to choose when it warns.",
+      "story": {
+       "item": "inventory-builder-chiro-inventory-low-stock-alert",
+       "text": "Inventory has a working sample stock list. The low-stock alert works and only needs you to choose when it warns.",
+       "approved": "Inventory has a working sample stock list. The low-stock alert works, and you chose when it warns.",
+       "sent_back": "Inventory has a working sample stock list. The low-stock alert works; you turned down the suggested warning level.",
+       "other": "Inventory has a working sample stock list. The low-stock alert works; you asked for a different warning level.",
+       "parked": "Inventory has a working sample stock list. The low-stock alert works; you parked the warning level until tomorrow."
+      },
       "done": [
        "Sample stock list with reorder points"
       ],
@@ -107,7 +121,14 @@ window.NB_DATA = {
       "name": "My CFO",
       "health": "On track",
       "health_reason": "Encrypted export built, being checked.",
-      "story": "My CFO shows status only here. The encrypted export is built and being checked, and one scheduling question is waiting for you.",
+      "story": {
+       "item": "cfo-lead-my-cfo-export-schedule",
+       "text": "My CFO shows status only here. The encrypted export is built and being checked, and one scheduling question is waiting for you.",
+       "approved": "My CFO shows status only here. The encrypted export is built and being checked, and you answered the scheduling question.",
+       "sent_back": "My CFO shows status only here. The encrypted export is built and being checked; you turned down the suggested schedule.",
+       "other": "My CFO shows status only here. The encrypted export is built and being checked; you asked for a different schedule.",
+       "parked": "My CFO shows status only here. The encrypted export is built and being checked; you parked the scheduling question until tomorrow."
+      },
       "done": [
        "Encrypted export: built, being checked"
       ],
@@ -128,7 +149,14 @@ window.NB_DATA = {
       "name": "Concierge",
       "health": "Waiting on you",
       "health_reason": "Welcome message timing needs a decision.",
-      "story": "The welcome message is written and tested with sample members. It only needs you to choose when it goes out.",
+      "story": {
+       "item": "concierge-lead-concierge-welcome-message",
+       "text": "The welcome message is written and tested with sample members. It only needs you to choose when it goes out.",
+       "approved": "The welcome message is written and tested with sample members, and you chose when it goes out.",
+       "sent_back": "The welcome message is written and tested with sample members; you turned down the proposed timing.",
+       "other": "The welcome message is written and tested with sample members; you asked for a different timing.",
+       "parked": "The welcome message is written and tested with sample members; you parked the timing decision until tomorrow."
+      },
       "done": [
        "Welcome message written and tested with sample members"
       ],
@@ -170,7 +198,14 @@ window.NB_DATA = {
       "name": "Platform",
       "health": "On track",
       "health_reason": "Quiet day; one maintenance question.",
-      "story": "The shared computer and the builders' tools ran without trouble today. One maintenance question is waiting.",
+      "story": {
+       "item": "platform-keeper-platform-night-checks",
+       "text": "The shared computer and the builders' tools ran without trouble today. One maintenance question is waiting.",
+       "approved": "The shared computer and the builders' tools ran without trouble today, and you answered the maintenance question.",
+       "sent_back": "The shared computer and the builders' tools ran without trouble today; you turned down the weekly restart.",
+       "other": "The shared computer and the builders' tools ran without trouble today; you asked for a different restart plan.",
+       "parked": "The shared computer and the builders' tools ran without trouble today; you parked the maintenance question until tomorrow."
+      },
       "done": [
        "Nightly checks ran clean"
       ],
@@ -1067,7 +1102,7 @@ window.NB_DATA = {
   "items": [
    {
     "id": "suggestion-1",
-    "rank": 1,
+    "rank": 2,
     "display_rank": 1,
     "title": "Put each project room's rules in its group description",
     "change": "Chief of Staff writes each project chat's standing rules into that chat's description: run the code checking toolkit wherever code is written and post one line on what it checked, reply in the room, what the room covers, and what it must never do.",
@@ -1081,7 +1116,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-2",
-    "rank": 2,
+    "rank": 3,
     "display_rank": 2,
     "title": "Give Chiro Payments a scripted self-check and a map of its features",
     "change": "A coding helper adds a scripted way for Chiro Payments to prove it works, plus a map of its features. My CFO already has one.",
@@ -1095,7 +1130,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-3",
-    "rank": 3,
+    "rank": 4,
     "display_rank": 3,
     "title": "Wake bots the moment a task changes status, instead of timed night checks",
     "change": "Bots start when a task moves in the task tracker: built work wakes the checker, a pass wakes Chief of Staff, and a send-back wakes the owner. The old nightly checks keep running for a week alongside, then stop once the new way is proven.",
@@ -1109,7 +1144,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-4",
-    "rank": 4,
+    "rank": 5,
     "display_rank": 4,
     "title": "Automatically watch each proposed code change",
     "change": "When a proposed code change opens, an automatic job follows just that change: each new version wakes the checker, failing checks wake the builder, and the job removes itself when the change closes.",
@@ -1123,7 +1158,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-5",
-    "rank": 5,
+    "rank": 6,
     "display_rank": 5,
     "title": "Run Chiro Payments as one coding project with shared memory",
     "change": "Instead of a new coding helper chat for every piece, one project coordinates the Chiro Payments work and keeps shared context over time. A bot can start it, so you don't have to open the coding app.",
@@ -1137,7 +1172,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-6",
-    "rank": 6,
+    "rank": 7,
     "display_rank": 6,
     "title": "Make Grok 4.7 the default model for coding helpers",
     "change": "Chief of Staff tells every coding helper to use Grok 4.7 unless a piece of work needs something else, and to save the costliest models for hard jobs only.",
@@ -1151,7 +1186,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-7",
-    "rank": 8,
+    "rank": 9,
     "display_rank": 7,
     "title": "Standing rule: replace repeated website clicking with a script",
     "change": "When a bot clicks through the same website on every run, it records the site's data calls once and switches the job to a script or a direct connection, one area of your life per script.",
@@ -1165,7 +1200,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-8",
-    "rank": 10,
+    "rank": 11,
     "display_rank": 8,
     "title": "Add a few 'Ask first' approval rules",
     "change": "A short list of approval rules: always ask before outside sends, deletes, changes to systems from another part of your life, and anything touching payments. You set them in Settings (they are stored per computer); Chief of Staff drafts the list.",
@@ -1179,7 +1214,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-9",
-    "rank": 11,
+    "rank": 12,
     "display_rank": 9,
     "title": "Pin Chief of Staff and the project rooms; hide one-on-one bot chats",
     "change": "Pin Chief of Staff and the active project rooms to the top of the sidebar and hide the one-on-one chats with individual bots. Hidden bots keep working.",
@@ -1193,7 +1228,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-10",
-    "rank": 12,
+    "rank": 13,
     "display_rank": 10,
     "title": "Star Chief of Staff as your main bot for a one-week trial",
     "change": "The starred bot offers work it could take off your plate, and anything you tag the bot in on X goes to it.",
@@ -1207,7 +1242,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-11",
-    "rank": 13,
+    "rank": 14,
     "display_rank": 11,
     "title": "Turn repeated fixes into permanent rules automatically",
     "change": "When the same mistake keeps coming back, a correction tool finds the pattern and fixes it at the root instead of correcting the bot again.",
@@ -1221,7 +1256,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-12",
-    "rank": 14,
+    "rank": 15,
     "display_rank": 12,
     "title": "Use built-in slide decks for the Live Out Loud speaking work",
     "change": "Bots build slide decks in the chat and deliver PowerPoint or Google Slides.",
@@ -1235,7 +1270,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-13",
-    "rank": 16,
+    "rank": 17,
     "display_rank": 13,
     "title": "Connect 1Password with a separate vault for bots only",
     "change": "Bots sign in from a dedicated vault with no finance logins, and you approve each fill.",
@@ -1249,7 +1284,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-14",
-    "rank": 17,
+    "rank": 18,
     "display_rank": 14,
     "title": "Try a second coding tool on one small Chiro task",
     "change": "Run one small task through your personal Claude plan instead of the usual coding helper, to see whether it cuts coding costs.",
@@ -1263,7 +1298,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-15",
-    "rank": 18,
+    "rank": 19,
     "display_rank": 15,
     "title": "Use Claude Fable 5.1 for coding work that has to prove itself",
     "change": "Pick Fable 5.1 instead of the older version for coding helpers that have to prove their work.",
@@ -1277,7 +1312,7 @@ window.NB_DATA = {
    },
    {
     "id": "suggestion-16",
-    "rank": 19,
+    "rank": 20,
     "display_rank": 16,
     "title": "Add up to five ready-made bots from the marketplace",
     "change": "Add up to five marketplace bots or add-ons after Chief of Staff checks them.",
@@ -1372,7 +1407,7 @@ window.NB_DATA = {
     "reason": "Settled by your yes on Oct 1."
    }
   ],
-  "hidden_other_hat": 4
+  "hidden_other_hat": 5
  },
  "app_names": {
   "chiro-payments": "Chiro Payments",

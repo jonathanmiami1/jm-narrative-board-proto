@@ -123,6 +123,7 @@ function board(){
       else if (n){ ch.health='Waiting on you'; ch.health_reason=`${n} thing${n!==1?'s':''} waiting on you here.`; }
       else if (parkedApps.has(ch.key)){ ch.health='On track'; ch.health_reason='Nothing waiting on you here; one item is parked until tomorrow.'; ch.next='The parked item comes back to you tomorrow.'; }
       else { ch.health_reason='Nothing waiting on you here.'; ch.health='On track'; if (ch.next_clear) ch.next=ch.next_clear; }
+      ch.story=storyText(ch.story||'');
     }
     v.story = v.story.map(storyText);
     const lbl=dayLabel(vd);
