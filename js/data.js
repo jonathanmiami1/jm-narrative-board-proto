@@ -201,9 +201,11 @@ window.NB_DATA = {
       "story": {
        "item": "platform-keeper-platform-night-checks",
        "text": "The shared computer and the builders' tools ran without trouble today. One maintenance question is waiting.",
-       "approved": "The shared computer and the builders' tools ran without trouble today, and you answered the maintenance question.",
-       "sent_back": "The shared computer and the builders' tools ran without trouble today; you turned down the weekly restart.",
-       "other": "The shared computer and the builders' tools ran without trouble today; you asked for a different restart plan.",
+       "yes": "The shared computer and the builders' tools ran without trouble today, and you said yes to the weekly 3 AM Sunday restart.",
+       "go": "The shared computer and the builders' tools ran without trouble today, and you went with the recommendation: a weekly 3 AM Sunday restart.",
+       "approved": "The shared computer and the builders' tools ran without trouble today, and you said yes to the weekly 3 AM Sunday restart.",
+       "sent_back": "The shared computer and the builders' tools ran without trouble today; you said no to the weekly restart, so it stays off.",
+       "other": "The shared computer and the builders' tools ran without trouble today; you asked for something different from the weekly restart.",
        "parked": "The shared computer and the builders' tools ran without trouble today; you parked the maintenance question until tomorrow."
       },
       "done": [
@@ -219,7 +221,14 @@ window.NB_DATA = {
       "ref_ids": [
        "platform-restart"
       ],
-      "next_clear": "The weekly restart is set up or dropped per your answer."
+      "next_clear": "The platform keeper acts on your answer.",
+      "next_by": {
+       "item": "platform-keeper-platform-night-checks",
+       "yes": "The platform keeper sets up the restart for 3 AM every Sunday, starting this Sunday.",
+       "go": "The platform keeper sets up the restart for 3 AM every Sunday, starting this Sunday.",
+       "sent_back": "No restart is scheduled; the platform keeper keeps watching for slowdowns instead.",
+       "other": "The platform keeper reads your comment and comes back with a different plan."
+      }
      },
      {
       "key": "board",
@@ -410,7 +419,14 @@ window.NB_DATA = {
       "ref_ids": [
        "platform-week"
       ],
-      "next_clear": "The weekly restart is set up or dropped per your answer."
+      "next_clear": "The platform keeper acts on your answer.",
+      "next_by": {
+       "item": "platform-keeper-platform-night-checks",
+       "yes": "The platform keeper sets up the restart for 3 AM every Sunday, starting this Sunday.",
+       "go": "The platform keeper sets up the restart for 3 AM every Sunday, starting this Sunday.",
+       "sent_back": "No restart is scheduled; the platform keeper keeps watching for slowdowns instead.",
+       "other": "The platform keeper reads your comment and comes back with a different plan."
+      }
      },
      {
       "key": "board",

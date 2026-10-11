@@ -115,14 +115,16 @@ function board(){
   for (const c of cards){ if (waitingIds.has(c.id)) itemState[c.id]='waiting'; else if (c.status==='parked') itemState[c.id]='parked'; else itemState[c.id]=({'Go with recommendation':'approved','Yes':'approved','No':'sent_back','Other':'other'})[c.response]||'waiting'; }
   const aiWaitN=ai.filter(i=>i.waiting).length;
   const parkedApps=new Set(cards.filter(c=>itemState[c.id]==='parked').map(c=>c.app));
-  const storyText=x=>{ if (x && typeof x==='object'){ const st=itemState[x.item]||'waiting'; x=(st!=='waiting' && x[st]) || x.text || ''; } return x.replace('{ai_waiting}', `${aiWaitN} suggestion${aiWaitN!==1?'s':''}`); };
+  const itemFine={}; for (const c of cards){ if (itemState[c.id]==='approved') itemFine[c.id]=({'Yes':'yes','Go with recommendation':'go'})[c.response]; }
+  const storyText=x=>{ if (x && typeof x==='object'){ const st=itemState[x.item]||'waiting'; const fine=itemFine[x.item]; x=(fine && x[fine]) || (st!=='waiting' && x[st]) || x.text || ''; } return x.replace('{ai_waiting}', `${aiWaitN} suggestion${aiWaitN!==1?'s':''}`); };
   for (const [vname, v] of Object.entries(snap.views)){
     for (const ch of v.chapters){
       const n=waiting.filter(w=>w.app===ch.key).length; ch.waiting_count=n;
       if (ch.health==='Stuck') {}
       else if (n){ ch.health='Waiting on you'; ch.health_reason=`${n} thing${n!==1?'s':''} waiting on you here.`; }
       else if (parkedApps.has(ch.key)){ ch.health='On track'; ch.health_reason='Nothing waiting on you here; one item is parked until tomorrow.'; ch.next='The parked item comes back to you tomorrow.'; }
-      else { ch.health_reason='Nothing waiting on you here.'; ch.health='On track'; if (ch.next_clear) ch.next=ch.next_clear; }
+      else { ch.health_reason='Nothing waiting on you here.'; ch.health='On track'; const nb=ch.next_by||{}; const nk=itemFine[nb.item]||itemState[nb.item]; if (nb[nk]) ch.next=nb[nk]; else if (ch.next_clear) ch.next=ch.next_clear; }
+      delete ch.next_by;
       ch.story=storyText(ch.story||'');
     }
     v.story = v.story.map(storyText);
