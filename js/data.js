@@ -13,11 +13,25 @@ window.NB_DATA = {
      "This is sample text so you can judge the layout; Chief of Staff writes the real story from every room once you approve the prototype.",
      "You paused the old daily board tonight and approved this narrative board in its place.",
      "Chiro Payments picked up two new ideas from you for the to-do list: a copay that charges automatically when a visit is completed, and a token vault so gateways can be swapped at any time.",
-     "The new checkout screen for a sample visit was built and checked, and it is waiting for your sign-off.",
+     {
+      "item": "payments-lead-chiro-payments-checkout-screen",
+      "text": "The new checkout screen for a sample visit was built and checked, and it is waiting for your sign-off.",
+      "approved": "The new checkout screen for a sample visit was built and checked, and you approved it.",
+      "sent_back": "The new checkout screen for a sample visit was built and checked; you sent it back with a comment.",
+      "other": "The new checkout screen for a sample visit was built and checked; you asked for a different approach.",
+      "parked": "The new checkout screen for a sample visit was built and checked; you parked the sign-off until tomorrow."
+     },
      "My CFO finished the encrypted export; it is built and being checked.",
-     "Concierge has a welcome message ready and needs one decision from you on when it goes out.",
+     {
+      "item": "concierge-lead-concierge-welcome-message",
+      "text": "Concierge has a welcome message ready and needs one decision from you on when it goes out.",
+      "approved": "Concierge has a welcome message ready, and you decided when it goes out.",
+      "sent_back": "Concierge has a welcome message ready; you turned down the proposed timing.",
+      "other": "Concierge has a welcome message ready; you asked for a different timing.",
+      "parked": "Concierge has a welcome message ready; you parked the timing decision until tomorrow."
+     },
      "Live Out Loud dashboards moved to role names only, so the front desk lead and studio manager views use sample numbers.",
-     "AI Improvements has 16 suggestions waiting on you here, ranked, with the closed ones folded away."
+     "AI Improvements has {ai_waiting} waiting on you here, ranked, with the closed ones folded away."
     ],
     "chapters": [
      {
@@ -43,7 +57,8 @@ window.NB_DATA = {
        "payments-checkout",
        "visit-copay",
        "token-vault"
-      ]
+      ],
+      "next_clear": "The payments builder starts the receipt page."
      },
      {
       "key": "chiro-inventory",
@@ -63,7 +78,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "inventory-low-stock"
-      ]
+      ],
+      "next_clear": "The alert goes to the checker with your answer."
      },
      {
       "key": "feedback-tool",
@@ -83,7 +99,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "feedback-idea"
-      ]
+      ],
+      "next_clear": "The feedback tool builder acts on your answer."
      },
      {
       "key": "my-cfo",
@@ -95,7 +112,7 @@ window.NB_DATA = {
        "Encrypted export: built, being checked"
       ],
       "building": [
-       "The My CFO lead is writing the restore steps for you and your CPA"
+       "Restore steps for you and your CPA are being written"
       ],
       "next": "Your answer on how often the export runs.",
       "sources": [
@@ -103,7 +120,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "cfo-export"
-      ]
+      ],
+      "next_clear": "The export schedule is set from your answer; restore steps come next."
      },
      {
       "key": "concierge",
@@ -123,7 +141,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "concierge-welcome"
-      ]
+      ],
+      "next_clear": "The welcome message goes out on the timing you chose."
      },
      {
       "key": "ai-dashboards-lol",
@@ -143,7 +162,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "lol-front-desk"
-      ]
+      ],
+      "next_clear": "The front desk lead view is finished with your answer."
      },
      {
       "key": "platform",
@@ -163,7 +183,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "platform-restart"
-      ]
+      ],
+      "next_clear": "The weekly restart is set up or dropped per your answer."
      },
      {
       "key": "board",
@@ -183,7 +204,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "narrative-board"
-      ]
+      ],
+      "next_clear": "The checker, then Chief of Staff, then you."
      }
     ]
    },
@@ -221,7 +243,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "payments-week"
-      ]
+      ],
+      "next_clear": "The payments builder starts the receipt page."
      },
      {
       "key": "chiro-inventory",
@@ -242,7 +265,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "inventory-week"
-      ]
+      ],
+      "next_clear": "The alert goes to the checker with your answer."
      },
      {
       "key": "feedback-tool",
@@ -264,7 +288,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "feedback-week"
-      ]
+      ],
+      "next_clear": "The feedback tool builder acts on your answer."
      },
      {
       "key": "my-cfo",
@@ -277,7 +302,7 @@ window.NB_DATA = {
        "Restore steps outlined for you and your CPA"
       ],
       "building": [
-       "The My CFO lead is finishing the restore steps"
+       "Restore steps for you and your CPA are being finished"
       ],
       "next": "Your answer on the export schedule.",
       "sources": [
@@ -285,7 +310,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "cfo-week"
-      ]
+      ],
+      "next_clear": "The export schedule is set from your answer; restore steps come next."
      },
      {
       "key": "concierge",
@@ -305,7 +331,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "concierge-week"
-      ]
+      ],
+      "next_clear": "The welcome message goes out on the timing you chose."
      },
      {
       "key": "ai-dashboards-lol",
@@ -326,7 +353,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "lol-week"
-      ]
+      ],
+      "next_clear": "The front desk lead view is finished with your answer."
      },
      {
       "key": "platform",
@@ -346,7 +374,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "platform-week"
-      ]
+      ],
+      "next_clear": "The weekly restart is set up or dropped per your answer."
      },
      {
       "key": "board",
@@ -367,7 +396,8 @@ window.NB_DATA = {
       ],
       "ref_ids": [
        "board-week"
-      ]
+      ],
+      "next_clear": "The checker, then Chief of Staff, then you."
      }
     ]
    }
