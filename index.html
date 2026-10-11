@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jon · Narrative board</title><link rel="icon" href="data:,">
+<style>
+:root{--bg:#f5f1e8;--card:#fff;--ink:#2a2620;--muted:#6b6358;--line:#e6dfd2;--accent:#2f5d50;--accent2:#e8f0ec;--warn:#9a5b00;--warnbg:#fff3dc;--bad:#a33;--badbg:#fbe9e9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;font-size:16px;line-height:1.5}
+header{position:sticky;top:0;z-index:5;background:#fffdf8ee;backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.bar{max-width:1240px;margin:auto;padding:10px 16px;display:flex;flex-wrap:nowrap;gap:8px 12px;align-items:center}
+.bar h1{font-size:17px;margin:0;font-weight:650}
+.bar h1,.bar .date{white-space:nowrap}
+.bar .date{color:var(--muted);font-size:14px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:6px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+.count{white-space:nowrap;background:var(--warnbg);color:var(--warn);font-weight:600;padding:4px 10px;border-radius:999px;font-size:14px;cursor:pointer;border:0}
+.updated{white-space:nowrap;color:var(--muted);font-size:12px}
+.spacer{flex:1}
+.linkbtn{white-space:nowrap;background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px;cursor:pointer;color:var(--ink);text-decoration:none}
+main{max-width:1240px;margin:auto;padding:16px}
+.sample{background:#fdf6df;border:1px dashed #d9c48a;color:#6b5a1e;font-size:13px;padding:8px 12px;border-radius:10px;margin-bottom:14px}
+section{margin:22px 0 30px}
+h2{font-size:20px;margin:0 0 10px}
+.sub{color:var(--muted);font-size:14px;margin:-6px 0 12px}
+.story{background:var(--card);border-radius:14px;padding:18px 20px;border:1px solid var(--line);font-family:Georgia,"Iowan Old Style",serif;font-size:17px}
+.story p{margin:0 0 8px}
+.chapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}
+.chap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.chap .head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chap h3{margin:0 0 4px;font-size:16px;flex:1 1 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.health{font-size:12px;font-weight:650;padding:3px 9px;border-radius:999px}
+.h-on{background:var(--accent2);color:var(--accent)}.h-wait{background:var(--warnbg);color:var(--warn)}.h-stuck{background:var(--badbg);color:var(--bad)}
+.reason{color:var(--muted);font-size:13px;margin:4px 0 0}
+.chap .body{margin-top:8px}
+.chap.collapsed .body{display:none}
+.lbl{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:10px 0 2px;font-weight:650}
+.chap ul{margin:0;padding-left:18px}
+.wlink{font-size:13px;border:0;background:var(--warnbg);color:var(--warn);border-radius:999px;padding:2px 9px;cursor:pointer}
+.wlink.zero{background:#f1efe9;color:var(--muted)}
+details summary{cursor:pointer;color:var(--accent);font-size:14px;margin-top:10px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.tools button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 10px;font-size:14px;cursor:pointer}
+.sweepinfo{font-size:13px;color:var(--muted);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chips .k{font-size:12px;color:var(--muted);align-self:center;margin-right:2px;min-width:38px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;font-size:13px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip.clear{border-style:dashed}
+.items{display:flex;flex-direction:column;gap:12px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.item h4{margin:0 0 4px;font-size:16px}
+.meta{font-size:13px;color:var(--muted)}
+.badge{display:inline-block;font-size:12px;font-weight:600;border-radius:6px;padding:1px 7px;margin-right:4px}
+.b-type{background:#eef0f4;color:#3c4659}.b-old{background:var(--badbg);color:var(--bad)}.b-back{background:var(--warnbg);color:var(--warn)}.b-rank{background:var(--accent2);color:var(--accent)}
+.rec{background:#f7f5ef;border-radius:10px;padding:8px 12px;margin:10px 0;font-size:14px}
+.rec b{font-weight:650}
+.extra{font-size:14px;margin:6px 0}
+.extra a{color:var(--accent)}
+.signoff a{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:14px;margin:4px 0}
+textarea{width:100%;min-height:58px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;font-size:15px;resize:vertical}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.btns button{border:1px solid var(--accent);background:#fff;color:var(--accent);border-radius:9px;padding:8px 12px;font-size:14px;cursor:pointer;font-weight:550}
+.btns button.primary{background:var(--accent);color:#fff}
+.btns button:disabled{opacity:.38;cursor:not-allowed}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.err{color:var(--bad);font-size:13px;margin-top:4px}
+.dest{font-size:12px;color:var(--muted);margin-top:4px}
+.mic.on{background:#fbe9e9;border-color:#a33;color:#a33;font-weight:600}
+.mic{border:1px solid var(--line);background:#fff;border-radius:8px;font-size:13px;padding:3px 8px;cursor:pointer;margin-top:4px}
+.ans{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.steps{display:flex;gap:4px;align-items:center;font-size:13px;margin:6px 0;flex-wrap:wrap}
+.step{padding:2px 9px;border-radius:999px;background:#f1efe9;color:var(--muted)}
+.step.on{background:var(--accent);color:#fff}
+.ackline{font-size:14px;font-style:italic}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#faf8f3;font-size:12px;text-transform:uppercase;color:var(--muted);letter-spacing:.04em}
+.empty{color:var(--muted);font-size:14px;padding:10px 0}
+.closed li{margin-bottom:6px}
+.protolabel{font-size:11px;font-weight:650;background:#fde8b0;color:#6b5a1e;border-radius:6px;padding:2px 7px;white-space:nowrap}
+#gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+#gate form{background:#fff;padding:32px 28px;border-radius:16px;box-shadow:0 4px 24px #0000000f;width:min(340px,88vw)}
+#gate h1{font-size:20px;margin:0 0 6px}#gate p{margin:0 0 18px;color:var(--muted);font-size:14px}
+#gate input{width:100%;padding:12px;border:1px solid #d8d0c2;border-radius:10px;font-size:16px}
+#gate button{margin-top:14px;width:100%;padding:12px;border:0;border-radius:10px;background:var(--accent);color:#fff;font-size:16px;cursor:pointer}
+#gerr{color:var(--bad);font-size:14px;margin-top:10px;min-height:18px}
+body.locked header,body.locked main{display:none}
+.viewbar{background:#eef0f4;border-radius:10px;padding:8px 12px;font-size:14px;margin-bottom:12px;display:none}
+@media (max-width:900px){.bar{flex-wrap:wrap}}
+@media (max-width:640px){.chapters{grid-template-columns:1fr}.chap h3{white-space:normal}.bar h1{font-size:15px}.story{font-size:16px}table,thead,tbody,tr,td,th{display:block}thead{display:none}td{border:0;padding:3px 10px}tr{border-bottom:1px solid var(--line);padding:6px 0}}
+</style></head>
+<body class="locked">
+<div id="gate"><form id="gateForm" autocomplete="off">
+  <h1>Jon's narrative board</h1>
+  <p>Private prototype with sample data. Enter the password to continue.</p>
+  <input id="pw" type="password" placeholder="Password" aria-label="Password" autocomplete="new-password" autofocus>
+  <button type="submit">Open the board</button>
+  <div id="gerr" role="alert"></div>
+</form></div>
+<header><div class="bar">
+  <h1>Jon's board</h1><span class="protolabel">Sample data — prototype</span>
+  <span class="date" id="date"></span>
+  <div class="seg" role="group" aria-label="Day or week">
+    <button id="vDay" aria-pressed="true">Day</button><button id="vWeek" aria-pressed="false">Week</button>
+  </div>
+  <button class="count" id="count" title="Jump to what's waiting"></button>
+  <span class="updated" id="updated"></span>
+  <span class="spacer"></span>
+  <button class="linkbtn" id="dayshift"></button>
+  <a class="linkbtn" href="#" id="logout">Log out</a>
+</div></header>
+<main>
+  <div class="sample">Sample data. Every story, item and answer here is sample wording for the prototype. Answers are kept in this browser only; nothing is sent to anyone. <button class="linkbtn" id="resetBtn" title="Clear every answer in this browser and start the sample again">Reset sample</button></div>
+  <div class="viewbar" id="viewbar"></div>
+
+  <section id="story-sec"><h2>The story so far</h2><p class="sub" id="storylabel"></p><div class="story" id="story"></div></section>
+
+  <section id="chapters-sec"><h2>App chapters</h2><p class="sub"><button class="linkbtn" id="expandAll">Expand all</button> <button class="linkbtn" id="collapseAll">Collapse all</button></p><div class="chapters" id="chapters"></div></section>
+
+  <section id="waiting-sec"><h2>Waiting on you</h2>
+    <p class="sub">Every question, sign-off and suggestion for you, in one list. Nothing leaves until you answer it or choose Later.</p>
+    <div class="tools">
+      <button id="sweepBtn" title="Copies unanswered chat questions into this list, as the 9:25 AM and 3:25 PM sweep does">Run sweep (sample chats)</button>
+      <button id="postNew">Simulate a bot posting a new question</button>
+      <button id="postDup">Simulate a bot posting the same question again</button>
+    </div>
+    <p class="sweepinfo" id="sweepinfo"></p>
+    <div class="chips" id="appchips"></div>
+    <div class="chips" id="typechips"></div>
+    <div class="items" id="waiting"></div>
+  </section>
+
+  <section id="ai-sec"><h2>AI Improvements</h2><p class="sub" id="aisub"></p>
+    <div class="items" id="ai"></div>
+    <details id="closedPanel" class="closed"><summary id="closedSum"></summary><ul id="closed"></ul></details>
+  </section>
+
+  <section id="answered-sec"><h2>Answered</h2><p class="sub">Your answers, where each one went, and whether the owner has received and acted on it.</p><div class="items" id="answered"></div></section>
+
+  <section id="outbox-sec"><h2>Where answers went</h2><p class="sub">Each answer is routed automatically to whoever raised it. Prototype: kept in this browser only.</p>
+    <table><thead><tr><th>Item</th><th>Went to</th><th>Your answer</th><th>Your comment</th><th>Status</th></tr></thead><tbody id="outbox"></tbody></table>
+  </section>
+</main>
+<script src="js/data.js"></script>
+<script src="js/engine.js"></script>
+<script>
+const S = {view:'day', data:null, apps:new Set(), types:new Set(), collapsed:new Set(), drafts:{}, errors:{}, closedOpen:false, srcOpen:new Set()};
+const TYPE_LABEL = {'question':'Question','sign-off':'Sign-off','ticket-feedback':'Ticket feedback','ai-rec':'AI suggestion','decision':'Decision'};
+const OPTS = ['Go with recommendation','Yes','No','Later','Other'];
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $ = id => document.getElementById(id);
+function fmtTime(iso){ if(!iso) return ''; const d=new Date(iso); return d.toLocaleString('en-US',{timeZone:'America/Denver',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' MT'; }
+function fmtDay(ds){ const [y,m,d]=ds.split('-').map(Number); return new Date(Date.UTC(y,m-1,d,12)).toLocaleDateString('en-US',{timeZone:'UTC',weekday:'long',month:'long',day:'numeric',year:'numeric'}); }
+function recText(r){ return r==='Yes-with-change' ? 'Yes, with a change' : r; }
+
+async function api(path, body){
+  return window.NB_ENGINE.handle(path, body);
+}
+async function load(full=true){
+  const [, d] = await api('/api/board');
+  S.data = d;
+  if (full) renderAll(); else { renderTop(); renderAnswered(); renderOutbox(); }
+  const pending = d.outbox.some(e => e.status !== 'Acted');
+  clearTimeout(S.t); if (pending) S.t = setTimeout(()=>load(false), 2000);
+}
+function renderAll(){ renderTop(); renderStory(); renderChapters(); renderWaiting(); renderAI(); renderAnswered(); renderOutbox(); }
+
+function renderTop(){
+  const d=S.data;
+  $('date').textContent = fmtDay(d.view_date);
+  $('count').textContent = `${d.waiting_total} thing${d.waiting_total===1?'':'s'} waiting on you`;
+  $('updated').textContent = 'Last updated ' + new Date(d.last_updated).toLocaleString('en-US',{timeZone:'America/Denver',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit'})+' MT';
+  $('vDay').setAttribute('aria-pressed', S.view==='day'); $('vWeek').setAttribute('aria-pressed', S.view==='week');
+  $('dayshift').textContent = d.view_offset_days ? 'Back to today' : "Tomorrow's board";
+  const vb=$('viewbar');
+  if (d.view_offset_days){ vb.style.display='block'; vb.textContent = "You're looking at tomorrow's board (simulated). Anything you parked with Later is back on the list."; } else vb.style.display='none';
+}
+function renderStory(){
+  const v=S.data.snapshot.views[S.view];
+  $('storylabel').textContent = v.label;
+  $('story').innerHTML = v.story.map(s=>`<p>${esc(s)}</p>`).join('');
+}
+function healthClass(h){ return h==='On track'?'h-on':(h==='Stuck'?'h-stuck':'h-wait'); }
+function renderChapters(){
+  const v=S.data.snapshot.views[S.view];
+  $('chapters').innerHTML = v.chapters.map(c=>{
+    const col = S.collapsed.has(c.key);
+    return `<article class="chap ${col?'collapsed':''}" id="chap-${esc(c.key)}" data-app="${esc(c.key)}" data-ref-ids="${esc((c.ref_ids||[]).join(' '))}">
+      <div class="head"><h3>${esc(c.name)}</h3><span class="health ${healthClass(c.health)}">${esc(c.health)}</span>
+        <button class="linkbtn tog" data-key="${esc(c.key)}" aria-expanded="${!col}">${col?'Expand':'Collapse'}</button></div>
+      <p class="reason">${esc(c.health_reason)}</p>
+      <div class="body">
+        <div class="lbl">Story</div><div>${esc(c.story)}</div>
+        <div class="lbl">Done</div><ul>${c.done.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+        <div class="lbl">Being built now</div><ul>${c.building.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+        <div class="lbl">Next</div><div>${esc(c.next)}</div>
+        <div class="lbl">Waiting on you here</div><button class="wlink ${c.waiting_count?'':'zero'}" data-app="${esc(c.key)}">${c.waiting_count} waiting${c.waiting_count?' · show them':''}</button>
+        <details class="src" data-key="${esc(c.key)}" ${S.srcOpen.has(c.key)?'open':''}><summary>Show where this came from</summary><ul>${c.sources.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>
+      </div></article>`;
+  }).join('');
+  document.querySelectorAll('.chap .tog').forEach(b=>b.onclick=()=>{ const k=b.dataset.key; S.collapsed.has(k)?S.collapsed.delete(k):S.collapsed.add(k); renderChapters(); });
+  document.querySelectorAll('.chap .wlink').forEach(b=>b.onclick=()=>{ S.apps=new Set([b.dataset.app]); S.types=new Set(); renderWaiting(); $('waiting-sec').scrollIntoView({behavior:'smooth'}); });
+  document.querySelectorAll('.chap details.src').forEach(dt=>dt.ontoggle=()=>{ dt.open?S.srcOpen.add(dt.dataset.key):S.srcOpen.delete(dt.dataset.key); });
+}
+
+function itemCard(it){
+  const key = it.kind+':'+it.id;
+  const draft = S.drafts[key] || '';
+  const dis = draft.trim() ? '' : 'disabled';
+  const norec = !it.recommendation || it.recommendation==='No recommendation given';
+  const signoff = it.type==='sign-off';
+  let extra = '';
+  if (it.kind==='ai'){
+    extra = `<div class="extra"><b>What changes:</b> ${esc(it.change)}</div>
+      <div class="extra meta">Effort: ${esc(it.effort)} · Who acts if yes: ${esc(it.owner_if_yes)} · Suggested ${esc(fmtDay(it.pack_date).replace(/^\w+, /,''))}${/^https?:/.test(it.source||'')?` · <a href="${esc(it.source.split(' · ')[0])}" target="_blank" rel="noopener">Source</a>`:''}</div>`;
+  }
+  if (it.link) extra += `<div class="extra signoff"><a href="${esc(it.link)}" target="_blank" rel="noopener" class="openlink">Open the screen ↗</a>${it.check?`<div class="meta">What to check: ${esc(it.check)}</div>`:''}</div>`;
+  const badges = [
+    it.display_rank ? `<span class="badge b-rank">#${it.display_rank}</span>` : '',
+    `<span class="badge b-type">${esc(TYPE_LABEL[it.type]||it.type)}</span>`,
+    it.waiting_since ? `<span class="badge b-old">Waiting since ${esc(fmtTime(it.asked_at).replace(/,.*$/,''))}</span>` : '',
+    it.back_from_later ? `<span class="badge b-back">Back from Later</span>` : '',
+    it.on_waiting_list_too ? `<span class="badge b-type">Also in Waiting on you</span>` : ''
+  ].join('');
+  const hint = signoff ? 'For sign-offs: Yes = approve, No = send back. A comment is required.' : 'A comment is required. Later brings it back tomorrow. Other: say in the comment what you want instead.';
+  const srcCount = (it.source && Array.isArray(it.source)) ? it.source.length : 0;
+  return `<article class="item" id="item-${esc(it.id)}" data-id="${esc(it.id)}" data-kind="${it.kind}" data-type="${esc(it.type)}" data-app="${esc(it.app)}" data-dest-id="${esc(it.route.destination.id||'')}">
+    <div>${badges}</div>
+    <h4>${esc(it.question)}</h4>
+    <div class="meta">${esc(it.app_name)} · Asked by ${esc(it.owner_bot?.name)}${it.asked_at?' · '+esc(fmtTime(it.asked_at)):''}${srcCount>1?` · asked ${srcCount} times, shown once`:''}</div>
+    <div class="rec"><b>Recommends:</b> ${esc(recText(it.recommendation))}<br><b>Why:</b> ${esc(it.why)}</div>
+    ${extra}
+    <textarea data-key="${esc(key)}" placeholder="Your comment (required)" aria-label="Comment">${esc(draft)}</textarea>
+    ${SR?`<button class="mic ${S.listening===key?'on':''}" data-key="${esc(key)}" aria-pressed="${S.listening===key}">${S.listening===key?'● Listening… tap to stop':'🎤 Dictate'}</button><span class="dicterr meta" data-key="${esc(key)}">${esc((S.dictErr&&S.dictErr.key===key)?S.dictErr.msg:'')}</span>`:''}
+    <div class="btns">${OPTS.map((o,i)=>{ const nr = i===0 && norec; return `<button ${nr?'disabled data-norec="1" title="No recommendation was given"':dis} class="${i===0?'primary':''}" data-choice="${esc(o)}" data-key="${esc(key)}">${esc(o)}</button>`; }).join('')}</div>
+    ${norec?'<div class="hint norec">No recommendation was given, so "Go with recommendation" is off. Pick Yes, No, Later or Other.</div>':''}
+    <div class="hint">${esc(hint)}</div>
+    <div class="dest">Your answer goes to: ${esc(it.route.destination.name)}</div>
+    <div class="err">${esc(S.errors[key]||'')}</div>
+  </article>`;
+}
+function wireCards(root){
+  root.querySelectorAll('textarea').forEach(t=>t.oninput=()=>{ S.drafts[t.dataset.key]=t.value; const on=!!t.value.trim(); t.closest('.item').querySelectorAll('.btns button').forEach(b=>b.disabled=b.dataset.norec?true:!on); });
+  root.querySelectorAll('.btns button').forEach(b=>b.onclick=()=>submit(b.dataset.key, b.dataset.choice));
+  root.querySelectorAll('.mic').forEach(m=>m.onclick=()=>toggleDictation(m));
+}
+let REC=null;
+function micButtons(key){ return document.querySelectorAll(`.mic[data-key="${CSS.escape(key)}"]`); }
+function setMic(key, on){ micButtons(key).forEach(b=>{ b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); b.textContent = on ? '● Listening… tap to stop' : '🎤 Dictate'; }); }
+function setDictErr(key, msg){ S.dictErr = msg ? {key, msg} : null; document.querySelectorAll(`.dicterr[data-key="${CSS.escape(key)}"]`).forEach(x=>x.textContent=msg||''); }
+function toggleDictation(btn){
+  const key = btn.dataset.key;
+  if (REC){ const k=S.listening; REC.stop(); if (k===key) return; }
+  const r = new SR(); REC = r; S.listening = key; setDictErr(key, ''); setMic(key, true);
+  r.lang = 'en-US'; r.continuous = true; r.interimResults = false;
+  r.onresult = e => { for (let i=e.resultIndex;i<e.results.length;i++){ if (!e.results[i].isFinal) continue; const txt=e.results[i][0].transcript.trim(); if(!txt) continue; S.drafts[key]=((S.drafts[key]||'')+' '+txt).trim(); document.querySelectorAll(`textarea[data-key="${CSS.escape(key)}"]`).forEach(t=>{ t.value=S.drafts[key]; t.oninput && t.oninput(); }); } };
+  r.onerror = e => { const m = {'not-allowed':'Microphone access is blocked. Allow it in the browser, or type instead.','service-not-allowed':'Dictation is not allowed in this browser. Type instead.','no-speech':"Didn't hear anything. Tap Dictate to try again.",'audio-capture':'No microphone found. Type instead.'}[e.error] || 'Dictation stopped. Type instead.'; setDictErr(key, m); };
+  r.onend = () => { if (REC===r){ REC=null; S.listening=null; } setMic(key, false); };
+  try { r.start(); } catch(err){ REC=null; S.listening=null; setMic(key,false); setDictErr(key,'Dictation could not start. Type instead.'); }
+}
+async function submit(key, choice){
+  const [kind, ...rest] = key.split(':'); const id = rest.join(':');
+  const comment = (S.drafts[key]||'').trim();
+  if (!comment){ S.errors[key]='Type a comment first.'; renderWaiting(); renderAI(); return; }
+  const [code, res] = await api('/api/answer', {id, kind, response:choice, comment});
+  if (code!==200){ S.errors[key]=res.error||'Could not send.'; renderWaiting(); renderAI(); return; }
+  delete S.drafts[key]; delete S.errors[key];
+  await load(true);
+}
+function renderWaiting(){
+  const d=S.data, w=d.waiting;
+  const apps=[...new Set(w.map(x=>x.app))], types=d.types;
+  $('appchips').innerHTML = `<span class="k">App</span>` + apps.map(a=>`<button class="chip" data-f="app" data-v="${esc(a)}" aria-pressed="${S.apps.has(a)}">${esc(d.app_names[a]||a)} (${w.filter(x=>x.app===a).length})</button>`).join('') + `<button class="chip clear" id="clearF">Clear filters</button>`;
+  $('typechips').innerHTML = `<span class="k">Type</span>` + types.map(t=>`<button class="chip" data-f="type" data-v="${esc(t)}" aria-pressed="${S.types.has(t)}">${esc(TYPE_LABEL[t])} (${w.filter(x=>x.type===t).length})</button>`).join('');
+  document.querySelectorAll('.chip[data-f]').forEach(c=>c.onclick=()=>{ const set=c.dataset.f==='app'?S.apps:S.types; set.has(c.dataset.v)?set.delete(c.dataset.v):set.add(c.dataset.v); renderWaiting(); });
+  $('clearF').onclick=()=>{ S.apps.clear(); S.types.clear(); renderWaiting(); };
+  const shown = w.filter(x=>(!S.apps.size||S.apps.has(x.app)) && (!S.types.size||S.types.has(x.type)));
+  $('waiting').innerHTML = shown.length ? shown.map(itemCard).join('') : `<div class="empty">${w.length?'Nothing matches these filters.':'Nothing is waiting on you.'}</div>`;
+  wireCards($('waiting'));
+  const runs=d.sweep.runs||[];
+  if (runs.length){ const r=runs[runs.length-1]; $('sweepinfo').textContent = `Last sweep ${fmtTime(r.at)}: ${r.added.length} new question${r.added.length===1?'':'s'} added, ${r.merged.length} already on the board (merged, no second card), ${r.skipped_answered_in_chat.length} you already answered in chat (left out)${r.already_on_board.length?`, ${r.already_on_board.length} unchanged`:''}.`; }
+  else $('sweepinfo').textContent = 'The sweep has not run yet on this sample.';
+}
+function renderAI(){
+  const a=S.data.ai;
+  const waiting=a.items.filter(i=>i.waiting);
+  $('aisub').textContent = `${waiting.length} suggestion${waiting.length===1?'':'s'} waiting, in rank order. Same five answers; each answer goes to AI Improvements.${a.hidden_other_hat?` ${a.hidden_other_hat} work items are kept off this personal board.`:''}`;
+  $('ai').innerHTML = waiting.map((it,i)=>itemCard(Object.assign({}, it, {display_rank:i+1}))).join('') || '<div class="empty">No suggestions waiting.</div>';
+  wireCards($('ai'));
+  $('closedSum').textContent = `Closed (${a.closed.length})`;
+  $('closed').innerHTML = a.closed.map(c=>`<li><b>${esc(c.item)}</b> <span class="meta">(${esc(fmtDay(c.pack_date).replace(/^\w+, /,''))})</span><br>${esc(c.reason)}</li>`).join('');
+  $('closedPanel').open = S.closedOpen;
+  $('closedPanel').ontoggle = ()=>{ S.closedOpen=$('closedPanel').open; };
+}
+function steps(o){
+  if (!o) return '';
+  const order=['Sent','Received','Acted']; const idx=order.indexOf(o.status);
+  return `<div class="steps">${order.map((s,i)=>`<span class="step ${i<=idx?'on':''}">${s}${i===0&&o.sent_at?' '+esc(fmtTime(o.sent_at).replace(/^.*, /,'')):''}${i===1&&o.received_at?' '+esc(fmtTime(o.received_at).replace(/^.*, /,'')):''}${i===2&&o.acted_at?' '+esc(fmtTime(o.acted_at).replace(/^.*, /,'')):''}</span>${i<2?'→':''}`).join('')}</div>`;
+}
+function renderAnswered(){
+  const a=S.data.answered;
+  $('answered').innerHTML = a.length ? a.map(it=>{
+    const o=it.outbox; const later=it.response==='Later';
+    return `<div class="ans" id="ans-${esc(it.id)}" data-id="${esc(it.id)}" data-dest-id="${esc(o?.destination?.id||'')}">
+      <div><span class="badge b-type">${esc(TYPE_LABEL[it.type]||it.type)}</span>${later?`<span class="badge b-back">Parked until ${esc(fmtDay(it.parked_until))}</span>`:''}</div>
+      <h4 style="margin:4px 0">${esc(it.question)}</h4>
+      <div class="meta">${esc(it.app_name)} · answered ${esc(fmtTime(it.answered_at))}</div>
+      <div class="extra"><b>Your answer:</b> ${esc(it.response)} · <b>Comment:</b> ${esc(it.comment)}</div>
+      <div class="extra"><b>Went to:</b> ${esc(o?.destination?.name||'')}</div>
+      ${steps(o)}
+      ${it.no_reply_yet?'<div class="err">No reply yet. Chief of Staff will chase.</div>':''}
+      ${o?.ack?`<div class="ackline">“${esc(o.ack)}”</div>`:''}
+    </div>`; }).join('') : '<div class="empty">Nothing answered yet.</div>';
+}
+function renderOutbox(){
+  const ob=S.data.outbox;
+  $('outbox').innerHTML = ob.length ? ob.map(e=>`<tr data-item-id="${esc(e.item_id)}" data-dest-kind="${esc(e.destination.kind)}" data-dest-id="${esc(e.destination.id||'')}">
+    <td><a href="#item-${esc(e.item_id)}" style="color:inherit">${esc(e.item_title)}</a><div class="meta">${esc(e.app_name)} · ${esc(TYPE_LABEL[e.type]||e.type)}</div></td>
+    <td>${esc(e.destination.name)}<div class="meta">${e.destination.kind==='room'?'Project room':'Bot'} · ${esc(e.who_acts||'')}</div></td>
+    <td>${esc(e.choice)}${e.parked_until?`<div class="meta">Back on ${esc(fmtDay(e.parked_until))}</div>`:''}</td>
+    <td>${esc(e.comment)}</td>
+    <td>${esc(e.status)}${e.ack?`<div class="meta">“${esc(e.ack)}”</div>`:''}</td></tr>`).join('') : '<tr><td colspan="5" class="empty">No answers sent yet.</td></tr>';
+}
+$('vDay').onclick=()=>{ S.view='day'; renderAll(); };
+$('vWeek').onclick=()=>{ S.view='week'; renderAll(); };
+$('count').onclick=()=>$('waiting-sec').scrollIntoView({behavior:'smooth'});
+$('expandAll').onclick=()=>{ S.collapsed.clear(); renderChapters(); };
+$('collapseAll').onclick=()=>{ S.data.snapshot.views[S.view].chapters.forEach(c=>S.collapsed.add(c.key)); renderChapters(); };
+$('dayshift').onclick=async()=>{ await api('/api/view',{offset:S.data.view_offset_days?0:1}); load(true); };
+$('sweepBtn').onclick=async()=>{ await api('/api/sweep',{}); load(true); };
+$('postNew').onclick=async()=>{ await api('/api/simulate-post',{which:'new'}); load(true); };
+$('postDup').onclick=async()=>{ await api('/api/simulate-post',{which:'duplicate'}); load(true); };
+$('resetBtn').onclick=async()=>{ if(!confirm('Clear every answer in this browser and start the sample again?')) return; await api('/api/reset',{}); S.drafts={}; S.errors={}; load(true); };
+const GATE_HASH='acd38823052b27cc4ed065c0ab81950e5d4f48d70967bf01262ef0234e131fb2';
+async function sha256(t){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function unlock(){ document.body.classList.remove('locked'); $('gate').style.display='none'; load(true); }
+function lock(){ localStorage.removeItem('nb_gate'); clearTimeout(S.t); document.body.classList.add('locked'); $('gate').style.display='flex'; $('pw').value=''; }
+$('gateForm').addEventListener('submit', async e=>{ e.preventDefault(); const h=await sha256($('pw').value.trim()); if(h===GATE_HASH){ localStorage.setItem('nb_gate',h); $('gerr').textContent=''; unlock(); } else $('gerr').textContent='That password did not work.'; });
+$('logout').onclick=e=>{ e.preventDefault(); lock(); };
+if (localStorage.getItem('nb_gate')===GATE_HASH) unlock();
+</script>
+</body></html>
